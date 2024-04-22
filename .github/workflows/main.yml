@@ -1,1 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+
+  pull_request:
+    branches: ["main"]
+      
+  workflow_dispatch:
+
+jobs:
+  build-app:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run a one-line script
+      run: echo "Hello, GitHub Actions!"
+
+    - name: Run a multi-line script
+      run:
+        echo Add other actions to build
+        echo test, and deploy your project.
+
+  build-api:
+    runs-on: windows-latest
+    steps:
+      - run: echo "bulding API"
+
+  build-db:
+    needs: build-app
+    runs-on: window-latest
+    steps:
+     - run: echo "hello window"
+
+  package:
+    needs: [build-app,build-db]
+    runs-on: macos-latest
+    steps:
+     - run: echo "hello macOS"
+
 
